@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos de Robótica & Tecnologia Assistiva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="main-header">
+        <div class="header-content">
+            <h1>Robótica & Inteligência Artificial</h1>
+            <p class="alumnos"><strong>Alunos:</strong> Yisel Romeo, Diego Jimenez</p>
+        </div>
+        
+        <!-- Painel de Acessibilidade -->
+        <nav class="accessibility-panel" aria-label="Controles de Acessibilidade">
+            <button id="btn-increase-font" aria-label="Aumentar tamanho do texto">A+</button>
+            <button id="btn-decrease-font" aria-label="Diminuir tamanho do texto">A-</button>
+            <button id="btn-toggle-contrast" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Seção 1: Introdução -->
+        <section class="intro-section">
+            <h2>Visão Geral e Objetivos</h2>
+            <div class="card intro-card">
+                <h3>Objetivo Geral</h3>
+                <p>Este portfólio tem como objetivo apresentar o desenvolvimento de projetos práticos de robótica e eletrônica utilizando Arduino, explorando a aplicação do pensamento computacional e a resolução de problemas de engenharia.</p>
+                
+                <h3>Como a Ciência, Tecnologia e IA contribuem para a Visão?</h3>
+                <p>A ciência dos materiais possibilita a criação de sensores ópticos e LEDs avançados, enquanto a tecnologia embarcada (como o Arduino) processa sinais do ambiente para automatizar tarefas visuais e de sinalização. A Inteligência Artificial eleva essa integração ao permitir que sistemas interpretem dados visuais em tempo real (visão computacional), auxiliando no reconhecimento de padrões, navegação de autônomos e no desenvolvimento de tecnologias assistivas para pessoas com deficiência visual.</p>
+            </div>
+        </section>
+
+        <!-- Seção 2: Projetos de Robótica -->
+        <section class="projects-section">
+            <h2>Projetos de Robótica</h2>
+
+            <!-- Card Projeto 1 -->
+            <article class="project-card">
+                <header class="project-header">
+                    <h3>Projeto 1: LED RGB Controlado por Potenciômetro</h3>
+                    <p class="project-objective"><strong>Objetivo:</strong> Controlar a variação de cores de um LED RGB dinamicamente de acordo com a leitura analógica de um potenciômetro.</p>
+                </header>
+
+                <div class="project-body">
+                    <section class="components-list">
+                        <h4>Componentes Utilizados</h4>
+                        <ul>
+                            <li>1x Placa Arduino Uno</li>
+                            <li>1x Potenciômetro de 10kΩ</li>
+                            <li>1x LED RGB (Anodo ou Cátodo Comum)</li>
+                            <li>3x Resistores de 220Ω</li>
+                            <li>Protoboard e Jumpers</li>
+                        </ul>
+                    </section>
+
+                    <section class="project-media">
+                        <h4>Mídia do Projeto</h4>
+                        <img src="https://via.placeholder.com/600x350?text=LED+RGB+com+Potenciometro" alt="Fotografia do circuito na protoboard mostrando o Arduino conectado ao potenciômetro e ao LED RGB emitindo luz colorida.">
+                    </section>
+
+                    <section class="errors-solutions">
+                        <h4>Relato de Erros e Soluções</h4>
+                        <p><strong>Problema:</strong> As cores do LED piscavam de forma desordenada ao girar o potenciômetro.</p>
+                        <p><strong>Solução:</strong> Ajustou-se o mapeamento da leitura analógica (0 a 1023) para a saída PWM (0 a 255) utilizando a função <code>map()</code> do Arduino e estabilizou-se o terra (GND) no circuito.</p>
+                    </section>
+
+                    <section class="code-block">
+                        <h4>Código Fonte (Arduino)</h4>
+                        <pre><code>// Pinos do LED RGB e Potenciômetro
+const int pinPot = A0;
+const int pinRed = 9;
+const int pinGreen = 10;
+const int pinBlue = 11;
+
+void setup() {
+  pinMode(pinRed, OUTPUT);
+  pinMode(pinGreen, OUTPUT);
+  pinMode(pinBlue, OUTPUT);
+}
+
+void loop() {
+  int valorPot = analogRead(pinPot);
+  
+  // Lógica simples de transição de cores por faixas
+  if (valorPot < 341) {
+    analogWrite(pinRed, map(valorPot, 0, 340, 255, 0));
+    analogWrite(pinGreen, map(valorPot, 0, 340, 0, 255));
+    analogWrite(pinBlue, 0);
+  } else if (valorPot < 682) {
+    analogWrite(pinRed, 0);
+    analogWrite(pinGreen, map(valorPot, 341, 681, 255, 0));
+    analogWrite(pinBlue, map(valorPot, 341, 681, 0, 255));
+  } else {
+    analogWrite(pinRed, map(valorPot, 682, 1023, 0, 255));
+    analogWrite(pinGreen, 0);
+    analogWrite(pinBlue, map(valorPot, 682, 1023, 255, 0));
+  }
+}</code></pre>
+                    </section>
+
+                    <section class="accessible-prototype">
+                        <h4>Ideia de Protótipo Acessível</h4>
+                        <p>Desenvolver um dispositivo assistivo de iluminação ajustável por toque ou voz para pessoas com baixa visão ou sensibilidade à luz (fotofobia), permitindo adaptar a temperatura de cor e o tom do ambiente de acordo com a necessidade do usuário.</p>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Card Projeto 2 -->
+            <article class="project-card">
+                <header class="project-header">
+                    <h3>Projeto 2: Sistema de Semáforo Duplo</h3>
+                    <p class="project-objective"><strong>Objetivo:</strong> Simular um cruzamento viário seguro sincronizando dois semáforos (Semáforo A e Semáforo B) com temporizações alternadas.</p>
+                </header>
+
+                <div class="project-body">
+                    <section class="components-list">
+                        <h4>Componentes Utilizados</h4>
+                        <ul>
+                            <li>1x Placa Arduino Uno</li>
+                            <li>2x LEDs Vermelhos, 2x LEDs Amarelos, 2x LEDs Verdes</li>
+                            <li>6x Resistores de 220Ω</li>
+                            <li>Protoboard e Jumpers</li>
+                        </ul>
+                    </section>
+
+                    <section class="project-media">
+                        <h4>Mídia do Projeto</h4>
+                        <img src="https://via.placeholder.com/600x350?text=Semaforo+Duplo+Arduino" alt="Fotografia da montagem no protoboard com seis LEDs alinhados em duas colunas representando o semáforo A e o semáforo B ativos.">
+                    </section>
+
+                    <section class="errors-solutions">
+                        <h4>Relato de Erros e Soluções</h4>
+                        <p><strong>Problema:</strong> Ambos os semáforos ficavam abertos (verde) ao mesmo tempo em uma das etapas da transição.</p>
+                        <p><strong>Solução:</strong> Reorganizou-se a ordem dos comandos no código, utilizando variáveis de tempo consistentes para garantir que a transição de um semáforo para vermelho ocorra antes que o outro receba o sinal verde.</p>
+                    </section>
+
+                    <section class="code-block">
+                        <h4>Código Fonte (Arduino)</h4>
+                        <pre><code>// Semáforo 1
+const int red1 = 2, yellow1 = 3, green1 = 4;
+// Semáforo 2
+const int red2 = 5, yellow2 = 6, green2 = 7;
+
+void setup() {
+  for(int i = 2; i <= 7; i++) {
+    pinMode(i, OUTPUT);
+  }
+}
+
+void loop() {
+  // Estado 1: Semáforo 1 Verde / Semáforo 2 Vermelho
+  digitalWrite(green1, HIGH); digitalWrite(red1, LOW);
+  digitalWrite(red2, HIGH);   digitalWrite(green2, LOW);
+  delay(5000);
+
+  // Estado 2: Semáforo 1 Amarelo / Semáforo 2 Vermelho
+  digitalWrite(green1, LOW);  digitalWrite(yellow1, HIGH);
+  delay(2000);
+
+  // Estado 3: Semáforo 1 Vermelho / Semáforo 2 Verde
+  digitalWrite(yellow1, LOW); digitalWrite(red1, HIGH);
+  digitalWrite(red2, LOW);    digitalWrite(green2, HIGH);
+  delay(5000);
+
+  // Estado 4: Semáforo 1 Vermelho / Semáforo 2 Amarelo
+  digitalWrite(green2, LOW);  digitalWrite(yellow2, HIGH);
+  delay(2000);
+  
+  digitalWrite(yellow2, LOW);
+}</code></pre>
+                    </section>
+
+                    <section class="accessible-prototype">
+                        <h4>Ideia de Protótipo Acessível</h4>
+                        <p>Integrar um sinalizador sonoro (buzzer) com frequências distintas e vibração ao sistema de semáforo duplo, auxiliando pedestres cegos ou com baixa visão a identificarem com segurança o momento exato de travessia do cruzamento.</p>
+                    </section>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
